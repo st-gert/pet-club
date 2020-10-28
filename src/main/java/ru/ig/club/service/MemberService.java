@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
 import ru.ig.club.model.Member;
 import ru.ig.club.model.dto.MemberDto;
+import ru.ig.club.model.dto.MemberPetsDto;
 import ru.ig.club.repository.MemberRepository;
 
 import java.util.List;
@@ -19,22 +20,22 @@ public class MemberService {
         this.repository = repository;
     }
 
-    public List<MemberDto> getMemberList() {
+    public List<MemberPetsDto> getMemberList() {
         return repository.findAll()
                 .stream()
-                .map(MemberDto::of)
+                .map(MemberPetsDto::of)
                 .collect(Collectors.toList())
                 ;
     }
 
-    public MemberDto getMemberById(Long memberId) {
-        return MemberDto.of(repository.findById(memberId)
+    public MemberPetsDto getMemberById(Long memberId) {
+        return MemberPetsDto.of(repository.findById(memberId)
                 .orElseThrow(ApplDbNoDataFoundException::new)
         );
     }
 
-    public MemberDto getMemberByName(String memberName) {
-        return MemberDto.of(repository.findByMemberName(memberName)
+    public MemberPetsDto getMemberByName(String memberName) {
+        return MemberPetsDto.of(repository.findByMemberName(memberName)
                 .orElseThrow(ApplDbNoDataFoundException::new)
         );
     }

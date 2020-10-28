@@ -24,3 +24,6 @@ spring:
 logging:
   level:
     ROOT: INFO
+
+cxf:
+  path: /ws/club

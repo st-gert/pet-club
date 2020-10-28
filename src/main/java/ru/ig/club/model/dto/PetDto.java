@@ -2,23 +2,25 @@ package ru.ig.club.model.dto;
 
 import ru.ig.club.model.Pet;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "petId", "kind", "petName" } )
 public class PetDto {
 
     private Long petId;
     private String kind;
     private String petName;
-    private Long ownerId;
-    private String ownerName;
 
     public static PetDto of(Pet pet) {
-        PetDto petDto = new PetDto();
-        petDto.setPetId(pet.getPetId());
-        petDto.setKind(pet.getKind());
-        petDto.setPetName(pet.getPetName());
-        petDto.setPetName(petDto.getPetName());
-        petDto.setOwnerId(pet.getOwner().getMemberId());
-        petDto.setOwnerName(pet.getOwner().getMemberName());
-        return petDto;
+        PetDto petDtoShort = new PetDto();
+        petDtoShort.setPetId(pet.getPetId());
+        petDtoShort.setKind(pet.getKind());
+        petDtoShort.setPetName(pet.getPetName());
+        petDtoShort.setPetName(petDtoShort.getPetName());
+        return petDtoShort;
     }
 
     // generated getters & setters
@@ -39,17 +41,5 @@ public class PetDto {
     }
     public void setPetName(String petName) {
         this.petName = petName;
-    }
-    public Long getOwnerId() {
-        return ownerId;
-    }
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
-    public String getOwnerName() {
-        return ownerName;
-    }
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
     }
 }

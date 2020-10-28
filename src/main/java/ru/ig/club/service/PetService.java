@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
 import ru.ig.club.model.Member;
 import ru.ig.club.model.Pet;
-import ru.ig.club.model.dto.PetDto;
+import ru.ig.club.model.dto.PetOwnerDto;
 import ru.ig.club.model.dto.PetRequest;
 import ru.ig.club.repository.PetRepository;
 
@@ -21,23 +21,23 @@ public class PetService {
         this.repository = repository;
     }
 
-    public List<PetDto> getPetList() {
+    public List<PetOwnerDto> getPetList() {
         return repository.findAll()
                 .stream()
-                .map(PetDto::of)
+                .map(PetOwnerDto::of)
                 .collect(Collectors.toList())
                 ;
     }
 
-    public PetDto getPetById(Long petId) {
-        return PetDto.of(
+    public PetOwnerDto getPetById(Long petId) {
+        return PetOwnerDto.of(
                 repository.findById(petId)
                 .orElseThrow(ApplDbNoDataFoundException::new)
         );
     }
 
     @Transactional
-    public PetDto addPet(PetRequest request) {
+    public PetOwnerDto addPet(PetRequest request) {
         Member member = new Member();
         member.setMemberId(request.getOwnerId());
         Pet pet = new Pet();
@@ -45,11 +45,11 @@ public class PetService {
         pet.setPetId(request.getPetId());
         pet.setKind(request.getKind());
         pet.setPetName(request.getPetName());
-        return PetDto.of(repository.save(pet));
+        return PetOwnerDto.of(repository.save(pet));
     }
 
     @Transactional
-    public PetDto updatePet(PetRequest request) {
+    public PetOwnerDto updatePet(PetRequest request) {
         if (!repository.existsById(request.getPetId())) {
             throw new ApplDbNoDataFoundException();
         }

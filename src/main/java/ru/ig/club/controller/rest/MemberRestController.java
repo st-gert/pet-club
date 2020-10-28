@@ -14,27 +14,28 @@ import ru.ig.club.exception.ApplDbConstraintException;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
 import ru.ig.club.model.Member;
 import ru.ig.club.model.dto.MemberDto;
+import ru.ig.club.model.dto.MemberPetsDto;
 import ru.ig.club.service.MemberService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/club/rest/member")
-public class MemberController {
+public class MemberRestController {
 
     private final MemberService service;
 
-    public MemberController(MemberService service) {
+    public MemberRestController(MemberService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<MemberDto> getAllMembers() {
+    public List<MemberPetsDto> getAllMembers() {
         return service.getMemberList();
     }
 
     @GetMapping("/{id}")
-    public MemberDto getMemberById(@PathVariable("id") Long memberId) {
+    public MemberPetsDto getMemberById(@PathVariable("id") Long memberId) {
         try {
             return service.getMemberById(memberId);
         } catch (ApplDbNoDataFoundException e) {
@@ -43,7 +44,7 @@ public class MemberController {
     }
 
     @GetMapping("/name/{name}")
-    public MemberDto getMemberByName(@PathVariable("name") String memberName) {
+    public MemberPetsDto getMemberByName(@PathVariable("name") String memberName) {
         try {
             return service.getMemberByName(memberName);
         } catch (ApplDbNoDataFoundException e) {
@@ -52,11 +53,13 @@ public class MemberController {
     }
 
     @PostMapping
-    public MemberDto addMember(@RequestBody Member member) {
-        if (member.getMemberId() != null) {
+    public MemberDto addMember(@RequestBody MemberDto memberDto) {
+        if (memberDto.getMemberId() != null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Member ID is not empty");
         }
         try {
+            Member member = new Member();
+            member.setMemberName(memberDto.getMemberName());
             return service.addMember(member);
         } catch (ApplDbConstraintException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Member name is not unique");
@@ -64,11 +67,14 @@ public class MemberController {
     }
 
     @PutMapping
-    public MemberDto updateMember(@RequestBody Member member) {
+    public MemberDto updateMember(@RequestBody MemberDto memberDto) {
         try {
+            Member member = new Member();
+            member.setMemberName(memberDto.getMemberName());
+            member.setMemberId(memberDto.getMemberId());
             return service.updateMember(member);
         } catch (ApplDbNoDataFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Member ID " + member.getMemberId() + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Member ID " + memberDto.getMemberId() + " not found");
         }
     }
 

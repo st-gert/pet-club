@@ -9,16 +9,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "memberId", "memberName", } )
-public class MemberDto {
+@XmlType(propOrder = { "memberId", "memberName", "pets" } )
+public class MemberPetsDto {
 
     private Long memberId;
     private String memberName;
+    private List<PetDto> pets;
 
-    public static MemberDto of(Member member) {
-        MemberDto memberDto = new MemberDto();
+    public static MemberPetsDto of(Member member) {
+        MemberPetsDto memberDto = new MemberPetsDto();
         memberDto.setMemberId(member.getMemberId());
         memberDto.setMemberName(member.getMemberName());
+        if (member.getPets() != null) {
+            memberDto.setPets(
+                    member.getPets().stream()
+                    .map(PetDto::of)
+                    .collect(Collectors.toList())
+            );
+        }
         return memberDto;
     }
 
@@ -34,5 +42,11 @@ public class MemberDto {
     }
     public void setMemberName(String memberName) {
         this.memberName = memberName;
+    }
+    public List<PetDto> getPets() {
+        return pets;
+    }
+    public void setPets(List<PetDto> pets) {
+        this.pets = pets;
     }
 }

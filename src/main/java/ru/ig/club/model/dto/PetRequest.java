@@ -1,5 +1,11 @@
 package ru.ig.club.model.dto;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "ownerId", "petId", "kind", "petName" } )
 public class PetRequest {
 
     private Long ownerId;
