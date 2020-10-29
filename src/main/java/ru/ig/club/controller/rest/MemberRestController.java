@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.ig.club.exception.ApplDbConstraintException;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
 import ru.ig.club.model.Member;
+import ru.ig.club.model.dto.MemberAddRequest;
 import ru.ig.club.model.dto.MemberDto;
 import ru.ig.club.model.dto.MemberPetsDto;
 import ru.ig.club.service.MemberService;
@@ -53,13 +54,10 @@ public class MemberRestController {
     }
 
     @PostMapping
-    public MemberDto addMember(@RequestBody MemberDto memberDto) {
-        if (memberDto.getMemberId() != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Member ID is not empty");
-        }
+    public MemberDto addMember(@RequestBody MemberAddRequest memberAddRequest) {
         try {
             Member member = new Member();
-            member.setMemberName(memberDto.getMemberName());
+            member.setMemberName(memberAddRequest.getMemberName());
             return service.addMember(member);
         } catch (ApplDbConstraintException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Member name is not unique");

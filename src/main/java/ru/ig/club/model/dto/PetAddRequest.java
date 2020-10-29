@@ -5,11 +5,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "ownerId", "petId", "kind", "petName" } )
-public class PetRequest {
+@XmlType(propOrder = { "ownerId", "kind", "petName" } )
+public class PetAddRequest {
 
     private Long ownerId;
-    private Long petId;
     private String kind;
     private String petName;
 
@@ -31,11 +30,5 @@ public class PetRequest {
     }
     public void setPetName(String petName) {
         this.petName = petName;
-    }
-    public Long getPetId() {
-        return petId;
-    }
-    public void setPetId(Long petId) {
-        this.petId = petId;
     }
 }

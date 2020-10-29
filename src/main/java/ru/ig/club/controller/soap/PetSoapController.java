@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ig.club.exception.ApplDbConstraintException;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
+import ru.ig.club.model.dto.PetAddRequest;
 import ru.ig.club.model.dto.PetOwnerDto;
-import ru.ig.club.model.dto.PetRequest;
+import ru.ig.club.model.dto.PetUpdateRequest;
 import ru.ig.club.service.PetService;
 
 import javax.jws.WebMethod;
@@ -38,10 +39,7 @@ public class PetSoapController {
     }
 
     @WebMethod
-    public PetOwnerDto addPet(@WebParam(name = "request") PetRequest petRequest) {
-        if (petRequest.getPetId() != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Pet ID is not empty");
-        }
+    public PetOwnerDto addPet(@WebParam(name = "request") PetAddRequest petRequest) {
         try {
             return service.addPet(petRequest);
         } catch (ApplDbConstraintException e) {
@@ -50,7 +48,7 @@ public class PetSoapController {
     }
 
     @WebMethod
-    public PetOwnerDto updatePet(@WebParam(name = "request") PetRequest petRequest) {
+    public PetOwnerDto updatePet(@WebParam(name = "request") PetUpdateRequest petRequest) {
         try {
             return service.updatePet(petRequest);
         } catch (ApplDbNoDataFoundException e) {

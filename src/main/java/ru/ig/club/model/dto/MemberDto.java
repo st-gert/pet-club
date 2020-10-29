@@ -5,8 +5,6 @@ import ru.ig.club.model.Member;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "memberId", "memberName", } )

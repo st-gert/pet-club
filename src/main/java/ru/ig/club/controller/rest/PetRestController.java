@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ig.club.exception.ApplDbConstraintException;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
+import ru.ig.club.model.dto.PetAddRequest;
 import ru.ig.club.model.dto.PetOwnerDto;
-import ru.ig.club.model.dto.PetRequest;
+import ru.ig.club.model.dto.PetUpdateRequest;
 import ru.ig.club.service.PetService;
 
 import java.util.List;
@@ -44,10 +45,7 @@ public class PetRestController {
     }
 
     @PostMapping
-    public PetOwnerDto addPet(@RequestBody PetRequest petRequest) {
-        if (petRequest.getPetId() != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Pet ID is not empty");
-        }
+    public PetOwnerDto addPet(@RequestBody PetAddRequest petRequest) {
         try {
             return service.addPet(petRequest);
         } catch (ApplDbConstraintException e) {
@@ -56,7 +54,7 @@ public class PetRestController {
     }
 
     @PutMapping
-    public PetOwnerDto updatePet(@RequestBody PetRequest petRequest) {
+    public PetOwnerDto updatePet(@RequestBody PetUpdateRequest petRequest) {
         try {
             return service.updatePet(petRequest);
         } catch (ApplDbNoDataFoundException e) {

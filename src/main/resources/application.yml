@@ -26,4 +26,4 @@ logging:
     ROOT: INFO
 
 cxf:
-  path: /ws/club
+  path: /club/ws

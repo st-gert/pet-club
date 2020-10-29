@@ -1,6 +1,5 @@
 package ru.ig.club.controller.soap;
 
-import org.springframework.stereotype.Component;
 import ru.ig.club.exception.ApplDbConstraintException;
 import ru.ig.club.exception.ApplDbNoDataFoundException;
 import ru.ig.club.exception.ApplException;

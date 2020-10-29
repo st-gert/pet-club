@@ -17,7 +17,7 @@ public class WebServiceConfig {
     private Bus bus;
 
     @Bean
-    public Endpoint endpointMemeber(MemberService service) {
+    public Endpoint endpointMember(MemberService service) {
         EndpointImpl endpoint = new EndpointImpl(bus, new MemberSoapController(service));
         endpoint.publish("/member");
         return endpoint;
