@@ -1,6 +1,6 @@
 FROM adoptopenjdk/maven-openjdk11 as builder
 COPY ./pom.xml /opt/app/pom.xml
-RUN mvn -f /opt/app dependency:go-offline
+RUN mvn -f /opt/app dependency:go-offline dependency:resolve
 COPY ./src /opt/app/src
 RUN mvn -f /opt/app package
 
