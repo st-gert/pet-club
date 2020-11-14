@@ -8,4 +8,8 @@ services:
     build: PetClubAuth
     ports:
       - 127.0.0.1:28080:8080
+  ingress-nginx:
+    build: IngressNginx
+    ports:
+      - 127.0.0.1:38080:80
 
