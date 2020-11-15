@@ -29,4 +29,4 @@ cxf:
   path: /club/ws
   servlet:
     init:
-      use-x-forwarded-headers: true
+      use-x-forwarded-headers: 'true'
