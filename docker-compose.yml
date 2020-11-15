@@ -11,5 +11,5 @@ services:
   ingress-nginx:
     build: ingress-nginx
     ports:
-      - 127.0.0.1:38080:80
+      - 80:80
 

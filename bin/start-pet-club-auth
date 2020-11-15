@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 PROJECT_DIR=$(cd $(dirname $0)/..; pwd)
-DOCKER_FILES_ARGS="-f \"${PROJECT_DIR}/docker-compose.prod.yml\""
+DOCKER_FILES_ARGS="-f ${PROJECT_DIR}/docker-compose.pet-club-auth.yml"
 
 docker-compose ${DOCKER_FILES_ARGS} build
 docker-compose ${DOCKER_FILES_ARGS} up --detach
